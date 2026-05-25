@@ -1,13 +1,18 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from datetime import datetime
 
 # Initialize the Flask application
 app = Flask(__name__)
 
-# Define the Route (The port/door the server listens to for requests)
+# --- THE MISSING FRONT DOOR (Serve the HTML) ---
+@app.route('/', methods=['GET'])
+def serve_frontend():
+    # Flask automatically looks inside the 'templates' folder for this file
+    return render_template('index.html')
+
+# --- THE BACKEND API ---
 @app.route('/api/status', methods=['GET'])
 def get_status():
-    # Return a JSON response to the Client
     return jsonify({
         "issue": 4,
         "status": "success",
