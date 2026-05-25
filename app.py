@@ -20,6 +20,17 @@ def get_status():
         "timestamp": datetime.now().isoformat()
     })
 
+# --- NEW: DYNAMIC API ROUTE ---
+# The <name> brackets tell Flask to treat that part of the URL as a variable
+@app.route('/api/greet/<name>', methods=['GET'])
+def greet_user(name):
+    # We pass the variable 'name' directly into our JSON response
+    return jsonify({
+        "status": "success",
+        "message": f"Hello {name}! Your dynamic infrastructure is working.",
+        "timestamp": datetime.now().isoformat()
+    })
+
 # Start the server on Port 3000
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
