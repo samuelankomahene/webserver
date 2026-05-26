@@ -1,16 +1,15 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from datetime import datetime
 
 # Initialize the Flask application
 app = Flask(__name__)
 
-# --- THE MISSING FRONT DOOR (Serve the HTML) ---
+# --- THE FRONT DOOR (Serve the HTML) ---
 @app.route('/', methods=['GET'])
 def serve_frontend():
-    # Flask automatically looks inside the 'templates' folder for this file
     return render_template('index.html')
 
-# --- THE BACKEND API ---
+# --- THE BACKEND API (Static) ---
 @app.route('/api/status', methods=['GET'])
 def get_status():
     return jsonify({
@@ -20,16 +19,33 @@ def get_status():
         "timestamp": datetime.now().isoformat()
     })
 
-# --- NEW: DYNAMIC API ROUTE ---
-# The <name> brackets tell Flask to treat that part of the URL as a variable
+# --- THE BACKEND API (Dynamic URL) ---
 @app.route('/api/greet/<name>', methods=['GET'])
 def greet_user(name):
-    # We pass the variable 'name' directly into our JSON response
     return jsonify({
         "status": "success",
         "message": f"Hello {name}! Your dynamic infrastructure is working.",
         "timestamp": datetime.now().isoformat()
     })
+
+# --- NEW: DATA INGESTION (POST Request) ---
+@app.route('/api/server/register', methods=['POST'])
+def register_server():
+    # 1. Unpack the hidden JSON payload from the incoming network traffic
+    incoming_data = request.get_json()
+    
+    # 2. Extract specific variables from that payload
+    server_name = incoming_data.get("hostname", "Unknown Server")
+    os_type = incoming_data.get("os", "Unknown OS")
+    
+    # 3. Send a response back confirming we received and processed the data
+    # Notice we return a 201 status code (Created) instead of the default 200 (OK)
+    return jsonify({
+        "status": "success",
+        "message": f"Server '{server_name}' running '{os_type}' successfully registered.",
+        "received_payload": incoming_data,
+        "timestamp": datetime.now().isoformat()
+    }), 201
 
 # Start the server on Port 3000
 if __name__ == '__main__':
