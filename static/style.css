@@ -1,0 +1,80 @@
+/* The main browser background (Almost black) */
+html {
+    background-color: #050505; 
+}
+
+/* The "Floating Card" */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #121212; /* Dark card background */
+    color: #e0e0e0; /* Light grey text */
+    max-width: 550px;
+    margin: 60px auto;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1); /* Subtle cyan glow */
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: #08eabd; /* Tech Cyan */
+    text-align: center;
+}
+
+img {
+    display: block;
+    margin: 30px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: #00ffcc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+ul {
+    background-color: #1e1e1e; /* Slightly lighter dark grey for contrast */
+    padding: 20px 40px;
+    border-radius: 12px;
+}
+/* Button Styling */
+button {
+    background-color: #9d4edd; /* Neon Purple */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ffffff;
+    color: #9d4edd;
+    box-shadow: 0 0 15px #9d4edd;
+}
+/* Light Mode Override Class (JavaScript will trigger this) */
+body.light-mode {
+    background-color: #f8f9fa;
+    color: #333333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode h1, 
+body.light-mode h2, 
+body.light-mode a {
+    color: #9d4edd; /* Matches your new Cyberpunk buttons! */
+}
+
+body.light-mode ul {
+    background-color: #e9ecef;
+}
