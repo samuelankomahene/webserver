@@ -1,10 +1,23 @@
-// --- 1. THE CLASSIC ALERT ---
-// Wir suchen den Button mit der ID 'alertBtn'
+// --- CLIENT-SERVER CONNECTION ---
 const alertBtn = document.getElementById('alertBtn');
 
-// Wir warten auf einen 'click'
-alertBtn.addEventListener('click', function() {
-    alert('Hallo! Danke, dass du mein Portfolio besuchst. 🏓');
+alertBtn.addEventListener('click', async () => {
+    try {
+        // 1. The Network Request: Ask the Python server for data
+        // (Feel free to change "Sammy" to any name you want!)
+        const response = await fetch('/api/greet/Sammy');
+        
+        // 2. The Unpacking: Extract the raw JSON from the server's response
+        const serverData = await response.json();
+        
+        // 3. The Display: Show the server's message on the frontend
+        alert("Antwort vom Server: " + serverData.message);
+        
+    } catch (error) {
+        // Fallback in case the server is offline
+        console.error("Netzwerkfehler:", error);
+        alert("Fehler: Der Python-Server ist nicht erreichbar.");
+    }
 });
 
 
