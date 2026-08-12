@@ -1,4 +1,4 @@
-# Hamann Solutions Webserver
+# Backend Webserver (Python/Flask)
 ## System Architecture: Python/Flask Webserver
 
 This project utilizes a Client-Server architecture built with Python and Flask.
